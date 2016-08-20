@@ -1,0 +1,203 @@
+
+vRouter_DC01#sh run
+Building configuration...
+
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service call-home
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+platform hardware throughput level MB 1000
+!
+hostname vRouter_DC01
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$1h4K$8IJV7eg.PMwuIUHDq5fXo1
+enable password vmware
+!
+no aaa new-model
+clock timezone PST -7 0
+clock calendar-valid
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+ip domain name core.hypervizor.com
+
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+spanning-tree extend system-id
+!
+username admin password 0 VMware1!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+cdp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ no ip address
+!
+interface GigabitEthernet1
+ description Site01_Internet
+ mtu 1600
+ ip address 192.168.21.2 255.255.255.0
+ ip nat outside
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet2
+ description WAN_MPLS
+ mtu 1600
+ ip address 10.155.14.10 255.255.255.0
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet3
+ description Site01_Management
+ mtu 1600
+ ip address 192.168.110.2 255.255.255.0
+ ip nat inside
+ negotiation auto
+ ntp broadcast
+ cdp enable
+!
+interface GigabitEthernet4
+ description Site01_DC_Access
+ mtu 1600
+ ip address 10.160.110.2 255.255.255.0
+ ip nat inside
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet5
+ mtu 1600
+ ip address 1.1.1.1 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet6
+ description Site01_EdgeNetworks
+ mtu 1600
+ ip address 192.168.100.2 255.255.255.0
+ ip nat inside
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet7
+ mtu 1600
+ ip address 192.168.150.2 255.255.255.0
+ ip nat inside
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet8
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet9
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet10
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ router-id 11.11.11.11
+ area 10 nssa no-summary
+ area 150 nssa no-summary
+ redistribute connected subnets
+ passive-interface Loopback0
+ network 10.155.14.10 0.0.0.0 area 0
+ network 10.155.14.0 0.0.0.255 area 0
+ network 10.160.110.2 0.0.0.0 area 0
+ network 192.168.21.2 0.0.0.0 area 0
+ network 192.168.100.2 0.0.0.0 area 10
+ network 192.168.110.2 0.0.0.0 area 0
+ network 192.168.150.2 0.0.0.0 area 150
+!
+!
+virtual-service csr_mgmt
+!
+ip nat inside source list NAT-Sources-Site01 interface GigabitEthernet1 overload
+ip nat inside source static tcp 192.168.110.25 443 192.168.21.2 443 extendable
+ip nat inside source static tcp 192.168.110.10 3389 192.168.21.2 3389 extendable
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 192.168.21.1
+!
+ip access-list extended NAT-Sources-Site01
+ permit ip 192.168.110.0 0.0.0.255 any
+ permit ip 172.16.0.0 0.0.255.255 any
+ permit ip 10.160.110.0 0.0.0.255 any
+!
+!
+snmp-server group DC01 v3 auth access vmware
+snmp-server view mib2 mib-2 included
+snmp-server community vmware RO
+snmp-server community public RO
+snmp-server community private RW
+snmp-server host 172.16.10.25 version 2c vmware
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ password vmware
+ login local
+line vty 5 98
+ login local
+!
+ntp master
+!
+end
+
+vRouter_DC01#
