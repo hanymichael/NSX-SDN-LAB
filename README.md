@@ -11,33 +11,33 @@ NSX System:
 - CAI: 1 x Edge Cluster + 1 x Compute
 - HBE: 1 x Collapsed Edge + Compute
 
-Multi-Rack Multi Edge Routing
+Multi-Rack Multi Edge Routing:
 - 1 x Local DLR with 1 LIF
 - 4 x Edge Services Gateways
 - 4 x Arista Top-of-Rack Switches
 - ECMP Configuration between ESGs & Arista ToRs over 4 VLANs (50, 60, 70, 80)
 
-Datacenter Interconnect
+Datacenter Interconnect:
 - 1 x Universal DLR with 3 LIFs
 - 2 x ESGs in Cairo Datacenter
 - 2 x ESGs in Alexandria Datacenter
 - ECMP Configuration
 - Local Egress
 
-Virtual Private Networking 
+Virtual Private Networking:
 - Site-to-Site VPN between CAI & HBE
 - 3-Site L2-VPN in Hub (CAI) spoke (HBE + Remote) design.
 - SSL-VPN Gateway in HBE for remote access 
 - SSL-VPN-Clients on Remote Site
 
-Load Balancing
+Load Balancing:
 - Load balancers for vCD-SP and vRA
 
-Distributed Firewall 
+Distributed Firewall: 
 - DFW with Universal FW Rules applied on the vRealize Automation Portal for end-user access.  
 - DFW with Local FW Rules on the 3-Tier Web/App/DB Application.
 
-# NSX Integrations
+# NSX Integrations:
 VMware Products
 - BCDR: vCenter Site Recovery Manager
 - Security: vRealize Log Insight
@@ -45,8 +45,57 @@ VMware Products
 - Automation: vRealize Automation
 - Service Provider: vCD-SP
 
-Third-Party
+Third-Party:
 - Routing: Arista vROS & Cisco CSR
 - Security NI: Palo Alto Networks
 - Security GI: Trend Micro 
+
+# Products & Accounts
+vSphere: 
+- vCenter Server 6.0 U2 - User/Pass: administrator/VMware1!
+- ESXi 6.0 U2 - User/Pass: root/VMware1!
+
+NSX: 
+- NSX 6.2.3 - User/Pass: admin/VMware1!
+
+Site Recovery Manager:
+- vCenter SRM 6.1 - User/Pass: administrator/VMware1!
+- vSphere Replication 6.1 - User/Pass: root/VMware1!
+
+vRealize Log Insight:
+- vRealize Log Insight 3.3 - User/Pass: admin/VMware1!
+
+vRealize Network Insight:
+- vRealize Network Insight 3.0 - User/Pass: admin/VMware1!
+
+vRealize Operations:
+- vRealize Operations 6.1 - User/Pass: admini/VMware1!
+
+vRealize Automation:
+- vRealize Automation 7.0.1 - User/Pass: administrator/VMware1!
+
+vCloud Director-SP 8.1:
+- vCloud Director SP 8.1 - User/Pass: administrator/VMware1!
+
+# Third-Party Vendors
+Cisco:
+- Cisco CSR 1000V - User/Pass: admin/VMware1!
+
+Arista:
+- Arista vEOS  4.15.4F - User/Pass: admin/VMware1!
+
+Palo Alto Networks:
+- Panorama 7.1 - User/Pass: admin/VMware1!
+- NSX VM-Series Firewall 7.0.1 
+
+OpenFiler: 
+- OpenFiler ESA 2.99.1 - User/Pass: admin/VMware1!
+
+
+
+
+
+
+
+
 
