@@ -10,3 +10,43 @@ NSX System:
 - 3 x Universal Controllers
 - CAI: 1 x Edge Cluster + 1 x Compute
 - HBE: 1 x Collapsed Edge + Compute
+
+Multi-Rack Multi Edge Routing
+- 1 x Local DLR with 1 LIF
+- 4 x Edge Services Gateways
+- 4 x Arista Top-of-Rack Switches
+- ECMP Configuration between ESGs & Arista ToRs over 4 VLANs (50, 60, 70, 80)
+
+Datacenter Interconnect
+- 1 x Universal DLR with 3 LIFs
+- 2 x ESGs in Cairo Datacenter
+- 2 x ESGs in Alexandria Datacenter
+- ECMP Configuration
+- Local Egress
+
+Virtual Private Networking 
+- Site-to-Site VPN between CAI & HBE
+- 3-Site L2-VPN in Hub (CAI) spoke (HBE + Remote) design.
+- SSL-VPN Gateway in HBE for remote access 
+- SSL-VPN-Clients on Remote Site
+
+Load Balancing
+- Load balancers for vCD-SP and vRA
+
+Distributed Firewall 
+- DFW with Universal FW Rules applied on the vRealize Automation Portal for end-user access.  
+- DFW with Local FW Rules on the 3-Tier Web/App/DB Application.
+
+# NSX Integrations
+VMware Products
+- BCDR: vCenter Site Recovery Manager
+- Security: vRealize Log Insight
+- Visibility: vRealize Network Insight
+- Automation: vRealize Automation
+- Service Provider: vCD-SP
+
+Third-Party
+- Routing: Arista vROS & Cisco CSR
+- Security NI: Palo Alto Networks
+- Security GI: Trend Micro 
+
