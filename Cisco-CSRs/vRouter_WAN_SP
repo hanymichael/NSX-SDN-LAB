@@ -1,0 +1,168 @@
+vRouter_WAN_ISP#sh run
+Building configuration...
+
+Current configuration : 2428 bytes
+!
+! Last configuration change at 00:06:09 PST Fri Aug 26 2016
+! NVRAM config last updated at 00:06:09 PST Fri Aug 26 2016
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname vRouter_WAN_ISP
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$voj9$n8XbKPz5b30ctGonYWg1K0
+enable password VMware1!VMware1!
+!
+no aaa new-model
+clock timezone PST -7 0
+clock calendar-valid
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+ip domain name core.hypervizor.com
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+multilink bundle-name authenticated
+!
+!
+username admin password 0 VMware1!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 5.5.5.5 255.255.255.255
+ ip ospf 1 area 0
+!
+interface GigabitEthernet1
+ description WAN_To_Site01
+ mtu 1600
+ ip address 10.155.14.5 255.255.255.0
+ ip ospf 1 area 0
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet2
+ description WAN_To_Site02
+ mtu 1600
+ ip address 10.157.17.5 255.255.255.0
+ ip ospf 1 area 0
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet3
+ description WAN_To_Site03
+ mtu 1600
+ ip address 10.156.16.5 255.255.255.0
+ ip ospf 1 area 0
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet4
+ mtu 1600
+ no ip address
+ ip ospf 1 area 0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet5
+ mtu 1600
+ no ip address
+ ip ospf 1 area 0
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet6
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet7
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet8
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet9
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet10
+ mtu 1600
+ ip address 3.3.3.3 255.255.255.0
+ negotiation auto
+!
+router ospf 1
+ passive-interface Loopback0
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+snmp-server group DC01 v3 auth access vmware
+snmp-server view mib2 mib-2 included
+snmp-server community vmware RO
+snmp-server community public RO
+snmp-server community private RW
+snmp-server host 172.16.10.25 version 2c vmware
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ password VMware1!
+ login local
+line vty 5 98
+ login local
+!
+!
+end
