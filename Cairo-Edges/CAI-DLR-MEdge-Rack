@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edge>
+    <id>edge-26</id>
+    <version>16</version>
+    <status>deployed</status>
+    <datacenterMoid>datacenter-2</datacenterMoid>
+    <datacenterName>Cairo Datacenter</datacenterName>
+    <tenant>default</tenant>
+    <name>CAI-DLR-MEdge-Rack</name>
+    <fqdn>NSX-edge-26</fqdn>
+    <enableAesni>false</enableAesni>
+    <enableFips>false</enableFips>
+    <vseLogLevel>emergency</vseLogLevel>
+    <appliances>
+        <applianceSize>compact</applianceSize>
+        <appliance>
+            <highAvailabilityIndex>0</highAvailabilityIndex>
+            <vcUuid>5016e56e-925f-d0d9-83c2-d11bd23c8f39</vcUuid>
+            <vmId>vm-696</vmId>
+            <haAdminState>up</haAdminState>
+            <resourcePoolId>domain-c253</resourcePoolId>
+            <resourcePoolName>CAI Edge Cluster</resourcePoolName>
+            <datastoreId>datastore-82</datastoreId>
+            <datastoreName>NFS03</datastoreName>
+            <hostId>host-277</hostId>
+            <hostName>esx03-s1.core.hypervizor.com</hostName>
+            <vmFolderId>group-v3</vmFolderId>
+            <vmFolderName>vm</vmFolderName>
+            <vmHostname>NSX-edge-26-0</vmHostname>
+            <vmName>CAI-DLR-MEdge-Rack-0</vmName>
+            <deployed>true</deployed>
+            <edgeId>edge-26</edgeId>
+            <configuredResourcePool>
+                <id>domain-c253</id>
+                <name>CAI Edge Cluster</name>
+                <isValid>true</isValid>
+            </configuredResourcePool>
+            <configuredDataStore>
+                <id>datastore-83</id>
+                <name>NFS04</name>
+                <isValid>true</isValid>
+            </configuredDataStore>
+            <configuredHost>
+                <id>host-277</id>
+                <name>esx03-s1.core.hypervizor.com</name>
+                <isValid>true</isValid>
+            </configuredHost>
+            <configuredVmFolder>
+                <id>group-v3</id>
+                <name>vm</name>
+                <isValid>true</isValid>
+            </configuredVmFolder>
+        </appliance>
+        <deployAppliances>true</deployAppliances>
+    </appliances>
+    <cliSettings>
+        <remoteAccess>true</remoteAccess>
+        <userName>admin</userName>
+        <sshLoginBannerText>
+***************************************************************************
+NOTICE TO USERS
+
+
+This computer system is the private property of its owner, whether
+individual, corporate or government.  It is for authorized use only.
+Users (authorized or unauthorized) have no explicit or implicit
+expectation of privacy.
+
+Any or all uses of this system and all files on this system may be
+intercepted, monitored, recorded, copied, audited, inspected, and
+disclosed to your employer, to authorized site, government, and law
+enforcement personnel, as well as authorized officials of government
+agencies, both domestic and foreign.
+
+By using this system, the user consents to such interception, monitoring,
+recording, copying, auditing, inspection, and disclosure at the
+discretion of such personnel or officials.  Unauthorized or improper use
+of this system may result in civil and criminal penalties and
+administrative or disciplinary action, as appropriate. By continuing to
+use this system you indicate your awareness of and consent to these terms
+and conditions of use. LOG OFF IMMEDIATELY if you do not agree to the
+conditions stated in this warning.
+
+****************************************************************************</sshLoginBannerText>
+        <passwordExpiry>99999</passwordExpiry>
+    </cliSettings>
+    <features>
+        <syslog>
+            <version>5</version>
+            <enabled>true</enabled>
+            <protocol>tcp</protocol>
+            <serverAddresses>
+                <ipAddress>log.core.hypervizor.com</ipAddress>
+            </serverAddresses>
+        </syslog>
+        <featureConfig/>
+        <firewall>
+            <version>9</version>
+            <enabled>false</enabled>
+            <globalConfig>
+                <tcpPickOngoingConnections>false</tcpPickOngoingConnections>
+                <tcpAllowOutOfWindowPackets>false</tcpAllowOutOfWindowPackets>
+                <tcpSendResetForClosedVsePorts>true</tcpSendResetForClosedVsePorts>
+                <dropInvalidTraffic>true</dropInvalidTraffic>
+                <logInvalidTraffic>false</logInvalidTraffic>
+                <tcpTimeoutOpen>30</tcpTimeoutOpen>
+                <tcpTimeoutEstablished>21600</tcpTimeoutEstablished>
+                <tcpTimeoutClose>30</tcpTimeoutClose>
+                <udpTimeout>60</udpTimeout>
+                <icmpTimeout>10</icmpTimeout>
+                <icmp6Timeout>10</icmp6Timeout>
+                <ipGenericTimeout>120</ipGenericTimeout>
+                <enableSynFloodProtection>false</enableSynFloodProtection>
+            </globalConfig>
+            <defaultPolicy>
+                <action>deny</action>
+                <loggingEnabled>false</loggingEnabled>
+            </defaultPolicy>
+            <firewallRules>
+                <firewallRule>
+                    <id>131077</id>
+                    <ruleTag>131077</ruleTag>
+                    <name>routing</name>
+                    <ruleType>internal_high</ruleType>
+                    <enabled>true</enabled>
+                    <loggingEnabled>false</loggingEnabled>
+                    <description>routing</description>
+                    <action>accept</action>
+                    <application>
+                        <service>
+                            <protocol>ospf</protocol>
+                            <port>any</port>
+                            <sourcePort>any</sourcePort>
+                        </service>
+                    </application>
+                </firewallRule>
+                <firewallRule>
+                    <id>131076</id>
+                    <ruleTag>131076</ruleTag>
+                    <name>default rule for ingress traffic</name>
+                    <ruleType>default_policy</ruleType>
+                    <enabled>true</enabled>
+                    <loggingEnabled>false</loggingEnabled>
+                    <description>default rule for ingress traffic</description>
+                    <action>deny</action>
+                </firewallRule>
+            </firewallRules>
+        </firewall>
+        <routing>
+            <version>10</version>
+            <enabled>true</enabled>
+            <routingGlobalConfig>
+                <routerId>192.168.11.11</routerId>
+                <ecmp>true</ecmp>
+                <logging>
+                    <enable>false</enable>
+                    <logLevel>info</logLevel>
+                </logging>
+            </routingGlobalConfig>
+            <staticRouting>
+                <staticRoutes/>
+            </staticRouting>
+            <ospf>
+                <enabled>true</enabled>
+                <protocolAddress>192.168.11.12</protocolAddress>
+                <forwardingAddress>192.168.11.11</forwardingAddress>
+                <ospfAreas>
+                    <ospfArea>
+                        <areaId>51</areaId>
+                        <type>nssa</type>
+                        <authentication>
+                            <type>none</type>
+                        </authentication>
+                    </ospfArea>
+                    <ospfArea>
+                        <areaId>150</areaId>
+                        <type>nssa</type>
+                        <authentication>
+                            <type>none</type>
+                        </authentication>
+                    </ospfArea>
+                </ospfAreas>
+                <ospfInterfaces>
+                    <ospfInterface>
+                        <vnic>2</vnic>
+                        <areaId>150</areaId>
+                        <helloInterval>10</helloInterval>
+                        <deadInterval>40</deadInterval>
+                        <priority>128</priority>
+                        <cost>1</cost>
+                        <mtuIgnore>true</mtuIgnore>
+                    </ospfInterface>
+                </ospfInterfaces>
+                <redistribution>
+                    <enabled>true</enabled>
+                    <rules>
+                        <rule>
+                            <id>0</id>
+                            <from>
+                                <isis>false</isis>
+                                <ospf>false</ospf>
+                                <bgp>false</bgp>
+                                <static>false</static>
+                                <connected>true</connected>
+                            </from>
+                            <action>permit</action>
+                        </rule>
+                    </rules>
+                </redistribution>
+                <gracefulRestart>true</gracefulRestart>
+                <defaultOriginate>false</defaultOriginate>
+            </ospf>
+        </routing>
+        <dhcp>
+            <version>5</version>
+            <enabled>false</enabled>
+            <staticBindings/>
+            <ipPools/>
+            <logging>
+                <enable>false</enable>
+                <logLevel>info</logLevel>
+            </logging>
+        </dhcp>
+        <bridges>
+            <version>5</version>
+            <enabled>false</enabled>
+        </bridges>
+        <highAvailability>
+            <version>5</version>
+            <enabled>false</enabled>
+            <declareDeadTime>6</declareDeadTime>
+            <logging>
+                <enable>false</enable>
+                <logLevel>info</logLevel>
+            </logging>
+            <security>
+                <enabled>false</enabled>
+            </security>
+        </highAvailability>
+    </features>
+    <autoConfiguration>
+        <enabled>true</enabled>
+        <rulePriority>high</rulePriority>
+    </autoConfiguration>
+    <type>distributedRouter</type>
+    <isUniversal>false</isUniversal>
+    <mgmtInterface>
+        <label>vNic_0</label>
+        <name>mgmtInterface</name>
+        <addressGroups/>
+        <mtu>1500</mtu>
+        <index>0</index>
+        <connectedToId>dvportgroup-18</connectedToId>
+        <connectedToName>DPortGroup-CAI-VM-Management-Networks</connectedToName>
+    </mgmtInterface>
+    <interfaces>
+        <interface>
+            <label>271000000002/vNic_2</label>
+            <name>Uplink-CAI-Transport--VXLAN-2-Local-Multi-Edge</name>
+            <addressGroups>
+                <addressGroup>
+                    <primaryAddress>192.168.11.11</primaryAddress>
+                    <subnetMask>255.255.255.0</subnetMask>
+                    <subnetPrefixLength>24</subnetPrefixLength>
+                </addressGroup>
+            </addressGroups>
+            <mtu>1500</mtu>
+            <type>uplink</type>
+            <isConnected>true</isConnected>
+            <isSharedNetwork>false</isSharedNetwork>
+            <index>2</index>
+            <connectedToId>virtualwire-5</connectedToId>
+            <connectedToName>CAI-Transport--VXLAN-2-Local-MEdge</connectedToName>
+        </interface>
+        <interface>
+            <label>27100000000a</label>
+            <name>LIF-CAI-MEdge-App-LS</name>
+            <addressGroups>
+                <addressGroup>
+                    <primaryAddress>172.16.150.1</primaryAddress>
+                    <subnetMask>255.255.255.0</subnetMask>
+                    <subnetPrefixLength>24</subnetPrefixLength>
+                </addressGroup>
+            </addressGroups>
+            <mtu>1500</mtu>
+            <type>internal</type>
+            <isConnected>true</isConnected>
+            <isSharedNetwork>false</isSharedNetwork>
+            <index>10</index>
+            <connectedToId>virtualwire-6</connectedToId>
+            <connectedToName>CAI-MEdge-App-LS</connectedToName>
+        </interface>
+    </interfaces>
+    <edgeAssistId>10000</edgeAssistId>
+    <lrouterUuid>be6c1ad8-8a29-4582-b6f0-4a035d8d011c</lrouterUuid>
+    <queryDaemon>
+        <enabled>false</enabled>
+        <port>5666</port>
+    </queryDaemon>
+</edge>
