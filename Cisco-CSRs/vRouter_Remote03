@@ -1,0 +1,126 @@
+vRouter_Remote03#sh run
+Building configuration...
+
+Current configuration : 1591 bytes
+!
+! Last configuration change at 07:06:14 UTC Fri Aug 26 2016
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname vRouter_Remote03
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$arcS$RpczvVbdEybBZKjqaQE6E0
+enable password VMware1!VMware1!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+ip domain name core.hypervizor.com
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+multilink bundle-name authenticated
+!
+!
+username admin password 0 VMware1!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 33.33.33.33 255.255.255.255
+ ip ospf 1 area 0
+!
+interface GigabitEthernet1
+ description Site03_WAN
+ mtu 1600
+ ip address 10.156.16.30 255.255.255.0
+ ip ospf 1 area 0
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet2
+ description Remote03_LAN
+ mtu 1600
+ ip address 10.171.11.2 255.255.255.0
+ ip ospf 1 area 0
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet3
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet4
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet5
+ mtu 1600
+ ip address 3.3.3.3 255.255.255.0
+ negotiation auto
+!
+router ospf 1
+ passive-interface Loopback0
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 192.168.21.2
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ password VMware1!
+ login local
+line vty 5 98
+ login local
+!
+!
+end
