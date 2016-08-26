@@ -1,4 +1,4 @@
-# NSX-SDN-LAB
+# NSX-SDN-LAB v3.5.1
 NSX Software-defined Networking Lab - Architected and Developed by Hany Michael 
 
 # About
@@ -72,7 +72,7 @@ vRealize Operations:
 - vRealize Operations 6.1 - User/Pass: admini/VMware1!
 
 vRealize Automation:
-- vRealize Automation 7.0.1 - User/Pass: administrator/VMware1!
+- vRealize Automation 7.1 - User/Pass: administrator/VMware1!
 
 vCloud Director-SP 8.1:
 - vCloud Director SP 8.1 - User/Pass: administrator/VMware1!
