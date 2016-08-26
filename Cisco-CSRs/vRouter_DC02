@@ -1,0 +1,173 @@
+vRouter_DC02#sh run
+Building configuration...
+
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service call-home
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+platform hardware throughput level MB 1000
+!
+hostname vRouter_DC02
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$M4VF$KEpZBb0QG6R.MZn6nlqeI1
+enable password vmware
+!
+no aaa new-model
+clock timezone PST -7 0
+clock calendar-valid
+!
+ip domain name core.hypervizor.com
+username admin password 0 VMware1!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ no ip address
+!
+interface GigabitEthernet1
+ description Site01_Internet
+ mtu 1600
+ ip address 192.168.22.2 255.255.255.0
+ ip nat outside
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet2
+ description WAN_MPLS
+ mtu 1600
+ ip address 10.157.17.20 255.255.255.0
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet3
+ description Site02_Management
+ mtu 1600
+ ip address 192.168.210.2 255.255.255.0
+ ip nat inside
+ negotiation auto
+ ntp broadcast
+ cdp enable
+!
+interface GigabitEthernet4
+ description Site02_DC_Access
+ mtu 1600
+ ip address 10.160.210.2 255.255.255.0
+ ip nat inside
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet5
+ mtu 1600
+ ip address 2.2.2.2 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet6
+ description Site02_EdgeNetworks
+ mtu 1600
+ ip address 192.168.200.2 255.255.255.0
+ ip nat inside
+ negotiation auto
+ cdp enable
+!
+interface GigabitEthernet7
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet8
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet9
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet10
+ mtu 1600
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 2
+ router-id 22.22.22.22
+ area 20 nssa no-summary
+ redistribute connected subnets
+ passive-interface Loopback0
+ network 10.157.17.20 0.0.0.0 area 0
+ network 10.160.210.2 0.0.0.0 area 0
+ network 192.168.22.2 0.0.0.0 area 0
+ network 192.168.200.2 0.0.0.0 area 20
+ network 192.168.210.2 0.0.0.0 area 0
+!
+!
+virtual-service csr_mgmt
+!
+ip nat inside source list NAT-Sources-Site02 interface GigabitEthernet1 overload
+ip nat inside source static 192.168.210.10 192.168.22.2
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 192.168.22.1
+!
+ip access-list extended NAT-Sources-Site02
+ permit ip 172.16.0.0 0.0.255.255 any
+ permit ip 192.168.210.0 0.0.0.255 any
+ permit ip 10.160.210.0 0.0.0.255 any
+!
+!
+snmp-server community public RO
+snmp-server community vmwaredc02 RW
+snmp-server location Alexandria
+snmp-server contact vRouter_DC02
+snmp-server chassis-id vRouter_DC02
+snmp-server host 172.16.10.25 version 2c vmwaredc02
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ password vmware
+ login local
+line vty 5 98
+ login local
+!
+ntp master
+!
+end
