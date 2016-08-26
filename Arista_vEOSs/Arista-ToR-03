@@ -1,0 +1,54 @@
+Arista-ToR-03#sh run
+! Command: show running-config
+! device: Arista-ToR-03 (vEOS, EOS-4.15.4F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname Arista-ToR-03
+!
+snmp-server community arista rw
+!
+spanning-tree mode mstp
+!
+no aaa root
+!
+username admin role network-admin secret 5 $1$yaFLQ8Ee$FDAG6h3WVBl4ghLKxmsYx/
+!
+vlan 70
+!
+interface Ethernet1
+   description Downlink to ESXi Host Uplink 1
+   mtu 1600
+   switchport access vlan 70
+!
+interface Ethernet2
+   description Arista vUplink to Spine
+   mtu 1600
+   no switchport
+   ip address 192.168.150.7/24
+!
+interface Management1
+   description Management Interface
+!
+interface Vlan70
+   mtu 1600
+   ip address 192.168.70.1/24
+!
+ip routing
+!
+router ospf 70
+   router-id 192.168.150.7
+   redistribute connected
+   redistribute static
+   area 0.0.0.150 nssa
+   network 192.168.70.0/24 area 0.0.0.150
+   network 192.168.150.0/24 area 0.0.0.150
+   max-lsa 12000
+!
+management ssh
+   authentication mode password
+!
+!
+end
