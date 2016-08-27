@@ -56,7 +56,7 @@ vSphere:
 - ESXi 6.0 U2 - User/Pass: root/VMware1!
 
 NSX: 
-- NSX 6.2.3 - User/Pass: admin/VMware1!
+- NSX 6.2.4 - User/Pass: admin/VMware1!
 
 Site Recovery Manager:
 - vCenter SRM 6.1 - User/Pass: administrator/VMware1!
